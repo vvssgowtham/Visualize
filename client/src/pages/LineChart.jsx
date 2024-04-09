@@ -38,7 +38,7 @@ const LineChart = () => {
     // Make an API call for the selected option
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/${selectedOption}`
+        `https://visualize-z41i.onrender.com/api/${selectedOption}`
       );
       const responseData = response.data;
       const avgTemps = [];
