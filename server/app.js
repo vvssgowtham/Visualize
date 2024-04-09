@@ -7,7 +7,7 @@ const port = 5000;
 
 app.use(
   cors({
-    origin: "https://visualize-eight.vercel.app",
+    origin: "https://visualize-charts.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
