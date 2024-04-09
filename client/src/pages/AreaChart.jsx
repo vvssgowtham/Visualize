@@ -1,27 +1,27 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {
-  Chart as ChartJS,
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from "chart.js";
+import { Line } from "react-chartjs-2";
+import { useNavigate } from 'react-router-dom';
+
+ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
-import ChartDataLabels from "chartjs-plugin-datalabels";
-import { useNavigate } from 'react-router-dom';
+  Filler
+);
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
-const BarChart = () => {
+const AreaChart = () => {
   const [data, setData] = useState(undefined);
+  const [avgtemp_c, setAvgtemp_c] = useState([]);
+  const [loading, setLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
 
   const options = ["Bangalore", "Vizag", "Chennai", "Calicut", "Pune"];
-  const [avgtemp_c, setAvgtemp_c] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   const onOptionChangeHandler = async (event) => {
     const selectedOption = event.target.value;
@@ -47,25 +47,14 @@ const BarChart = () => {
   };
 
   return (
-    <div
-      style={{ minHeight: "100vh", backgroundColor: "black", padding: "2rem" }}
-    >
+    <div style={{ minHeight: "100vh", backgroundColor: "black", padding: "2rem" }}>
       <div style={{ display: "flex-row", justifyContent: "space-around" }}>
-        <h1
-          className="text-white"
-          style={{ fontSize: "30px", fontWeight: "bold" }}
-          onClick={() => navigate("/")}
-        >
-          BarChart
+        <h1 className="text-white" style={{ fontSize: "30px", fontWeight: "bold" }} onClick={() => navigate("/")}>
+          AreaChart
         </h1>
         <select
           onChange={onOptionChangeHandler}
-          style={{
-            fontSize: "18px",
-            padding: "0.15rem",
-            cursor: "pointer",
-            borderRadius: "5px",
-          }}
+          style={{ fontSize: "18px", padding: "0.15rem", cursor: "pointer", borderRadius: "5px" }}
         >
           <option>Select Place To Visualize</option>
           {options.map((option, index) => {
@@ -81,7 +70,7 @@ const BarChart = () => {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
+            backgroundColor: "rgba(255, 255, 255, 0.5)", // Semi-transparent white background
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -90,34 +79,24 @@ const BarChart = () => {
             <div>Loading...</div>
           </div>
         )}
-        <Bar
+        <Line
           data={{
-            labels: ["Today", "Tomorrow", "NextDay"], // Adjusted labels for 3 days
+            labels: ["Today", "Tomorrow", "Next Day"],
             datasets: [
               {
                 label: "Average Temperature (°C)",
-                backgroundColor: "rgb(255, 99, 132)",
-                borderColor: "white",
+                backgroundColor: "rgba(255, 99, 132, 0.2)",
+                borderColor: "rgba(255, 99, 132, 1)",
                 borderWidth: 1,
-                hoverBackgroundColor: "rgba(255, 99, 132, 0.4)",
-                hoverBorderColor: "rgba(255, 99, 132, 1)",
-                data: avgtemp_c, // Use the fetched average temperatures
+                data: avgtemp_c,
+                fill: 'origin'
               },
             ],
           }}
-          options={{
-            plugins: {
-              datalabels: {
-                anchor: "end", 
-                align: "end",
-              },
-            },
-          }}
-          plugins={[ChartDataLabels]}
         />
       </div>
     </div>
   );
 };
 
-export default BarChart;
+export default AreaChart;
