@@ -49,7 +49,7 @@ const AreaChart = () => {
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "black", padding: "2rem" }}>
       <div style={{ display: "flex-row", justifyContent: "space-around" }}>
-        <h1 className="text-white" style={{ fontSize: "30px", fontWeight: "bold" }} onClick={() => navigate("/")}>
+        <h1 className="text-white" style={{ fontSize: "30px", fontWeight: "bold", cursor: "pointer" }} onClick={() => navigate("/")}>
           AreaChart
         </h1>
         <select

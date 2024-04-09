@@ -50,7 +50,7 @@ const BarChart = () => {
     <div
       style={{ minHeight: "100vh", backgroundColor: "black", padding: "2rem" }}
     >
-      <div style={{ display: "flex-row", justifyContent: "space-around" }}>
+      <div style={{ display: "flex-row", justifyContent: "space-around",cursor: "pointer" }}>
         <h1
           className="text-white"
           style={{ fontSize: "30px", fontWeight: "bold" }}
